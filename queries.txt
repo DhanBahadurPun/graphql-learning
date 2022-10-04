@@ -1,0 +1,112 @@
+mutation createUser($newUser: UserInput!) {
+  userSignup(newUser: $newUser) {
+    name
+  }
+}
+
+variables
+{
+  "newUser": {
+    "name": "Ram",
+    "username": "ram@gmail.com",
+    "gender": "male",
+    "phone": "984939393",
+    "password": "1234",
+    "role": "user","is_active": true
+  }
+}
+
+mutation LoginUser($loginInfo: LoginInput!){
+  userLogin(loginInfo: $loginInfo){
+    token
+    user{
+      id
+      name
+      username
+      gender
+      phone
+      role
+    }
+  }
+}
+
+
+query FindBYId($id: ID!){
+  getOneUser(id: $id){
+    name
+    username
+    gender
+    phone
+  }
+}
+
+--------------------------------------------------------------------------
+ORGANIZATIONS
+--------------------------------------------------------------------------
+
+mutation CreateOrganization($input: CreateOrganizationInput){
+  createOrganization(input: $input)
+}
+
+{
+  "input": {
+    "name": "Phokhara Guest House",
+    "category": "GUESTHOUSE",
+    "contact": "98737373",
+    "district": "Solukhumbu",
+    "city": "Namche Bazar",
+    "address": "Namche Bazar-11, Solukhumbu, Nepal",
+    "facilities": ["Hot Water 24 hours","Electric Bed","QR code accepted","Online bookings available"],
+    "rules": ["no smocking in bed","Dinner don't provide after 10pm","Can't stay more than bookings period"]
+  }
+}
+
+query GetAllOrganizations {
+  getAllOrganizations{
+    name
+  	category
+    contact_no
+  }
+}
+
+-----------------------------------------------------------------------------
+ROOM
+-----------------------------------------------------------------------------
+
+mutation CreateRoom($input: CreateRoomInput){
+  data: createRoom(input: $input)
+}
+
+{
+  "input": {
+    "title": "Second Floor Best side Room",
+    "status": "PUBLISHED",
+    "category": "BUDGET",
+    "room_number": 4,
+    "booked": 0,
+    "price": 40000,
+    "available_room": {
+      "adults": 3,
+      "children": 1
+    },
+    "beds": 8
+  }
+}
+
+query GetALLRooms {
+  getAllRooms {
+    title
+    status
+    category
+    no_of_rooms
+    booked
+    price
+    capacity {
+      adults
+      children
+      __typename
+    }
+    beds
+    __typename
+  }
+}
